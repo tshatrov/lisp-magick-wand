@@ -287,8 +287,18 @@
 (cffi:define-foreign-library lib-magick-wand
   (:darwin "libMagickWand.dylib")
   (:unix (:or "libMagickWand.so" "libWand.so.9" "libWand.so"))
+  (:win32 "CORE_RL_MagickWand_.dll")
   (t (:default "libWand")))
+
 (cffi:use-foreign-library lib-magick-wand)
+
+(cffi:define-foreign-library lib-magick-core
+  (:darwin "libMagickCore.dylib")
+  (:unix (:or "libMagickCore.so" "libWand.so.9" "libWand.so"))
+  (:win32 "CORE_RL_MagickCore_.dll")
+  (t (:default "libWand")))
+
+(cffi:use-foreign-library lib-magick-core)
 
 (defun type-name-to-class-name (name)
   (intern (concatenate 'string (symbol-name name) "-TYPE-CLASS")
